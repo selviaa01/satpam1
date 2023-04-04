@@ -1,12 +1,19 @@
 @extends('app')
 @section('content')
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{session('success')}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert"
+  aria-label="close"></button>
+</div>
+@endif
 <div class="text-end mb-2">
     <a class="btn btn-secondary" href="{{ route('positions.create') }}"> Add Positions</a>
 </div>
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">No</th>
       <th scope="col">Nama</th>
       <th scope="col">Keterangan</th>
       <th scope="col">Singkatan</th>

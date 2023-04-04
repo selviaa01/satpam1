@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Positions;
 use Illuminate\Http\Request;
 
@@ -8,16 +9,15 @@ class PositionsController extends Controller
 {
     public function index()
     {
-        $title = "Data Positions";
-        $positions = Positions::orderBy('id','asc')->paginate(5);
-        return view('positions.index', compact(['positions' , 'title']));
-
+        $title = "Data Position";
+        $positions = Positions::orderBy('id', 'asc')->paginate(5);
+        return view('positions.index', compact(['positions', 'title']));
     }
 
     public function create()
     {
         $title = "Tambah Data Position";
-        return view('positions.create' , compact('title'));
+        return view('positions.create', compact('title'));
     }
 
     public function store(Request $request)
@@ -27,41 +27,43 @@ class PositionsController extends Controller
             'keterangan',
             'alias',
         ]);
-        
+
         Positions::create($request->post());
 
-        return redirect()->route('positions.index')->with('success','Position has been created successfully.');
+        return redirect()->route('positions.index')->with('success', 'Position has been created successfully.');
     }
 
-    public function show(Positions $positions)
+
+    public function show(Positions $position)
     {
-        return view('positions.show',compact('positions'));
+        return view('positions.show', compact('position'));
     }
 
-    public function edit(Positions $positions)
+
+    public function edit(Positions $position)
     {
-        return view('positions.edit',compact('positions'));
+        $title = "Edit Data Position";
+        return view('positions.edit', compact(['position', 'title']));
     }
 
 
-    public function update(Request $request, Positions $positions)
+    public function update(Request $request, Positions $position)
     {
         $request->validate([
             'name' => 'required',
             'keterangan',
-            'aliases',
+            'alias'
         ]);
-        
-        $positions->fill($request->post())->save();
 
-        return redirect()->route('positions.index')->with('success','Positions Has Been updated successfully');
+        $position->fill($request->post())->save();
+
+        return redirect()->route('positions.index')->with('success', 'Position Has Been updated successfully');
     }
 
 
-    public function destroy(Positions $positions)
+    public function destroy(Positions $position)
     {
-        $positions->delete();
-        return redirect()->route('positions.index')->with('success','Positions has been deleted successfully');
+        $position->delete();
+        return redirect()->route('positions.index')->with('success', 'Position has been deleted successfully');
     }
-
 }
