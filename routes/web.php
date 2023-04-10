@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\UserController;  //mendaptarkan controler
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController; //Mendaftarkan Controller
-use App\Http\Controllers\PositionsController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\DepartementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,10 +11,17 @@ use App\Http\Controllers\PositionsController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
+Route::resource('companies', PositionController::class);
+Route::resource('companies', DepartementController::class);
+
+Route::get('/', function () {
+    return view('home', ['title' => 'Home']);
+})->name('home');
+
 
 
 Route::get('register', [UserController::class, 'register'])->name('register');
@@ -30,7 +38,10 @@ Route::middleware('auth')->group(
         Route::post('password', [UserController::class, 'password_action'])->name('password.action');
         Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-        //route position
-        Route::resource('positions', PositionsController::class);
 
+// route position
+        Route::resource('positions', PositionController::class);
+
+        Route::resource('departements', DepartementController::class);
+        
     });
