@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Positions;
 use Illuminate\Http\Request;
 
-class PositionsController extends Controller
+class PositionController extends Controller
 {
     public function index()
     {

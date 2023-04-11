@@ -7,14 +7,14 @@
 </div>
 @endif
 <div class="text-end mb-2">
-  <a class="btn btn-success" href="{{ route('companies.create') }}"> Add Pasien</a>
+  <a class="btn btn-success" href="{{ route('companies.create') }}"> Add Satpam</a>
 </div>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">No</th>
-      <th scope="col">Nama</th>
-      <th scope="col">location</th>
+      <th scope="col">Name</th>
+      <th scope="col">Location</th>
       <th scope="col">manager_id</th>
       <th scope="col">Actions</th>
     </tr>

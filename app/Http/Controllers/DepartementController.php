@@ -9,7 +9,7 @@ class DepartementController extends Controller
 {
     public function index()
     {
-        $title = "Data Satpam";
+        $title = "Data Mahasiswa";
         $departements = Departements::orderBy('id', 'asc')->paginate(5);
         return view('departements.index', compact(['departements', 'title']));
     }
