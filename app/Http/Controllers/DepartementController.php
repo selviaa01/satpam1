@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departements;
 use Illuminate\Http\Request;
+use App\Models\Departements;
+use App\Models\User;
 
 class DepartementController extends Controller
 {
     public function index()
     {
-        $title = "Data Mahasiswa";
+        $title = "Data Departement";
         $departements = Departements::orderBy('id', 'asc')->paginate(5);
         return view('departements.index', compact(['departements', 'title']));
     }
@@ -17,37 +18,39 @@ class DepartementController extends Controller
     public function create()
     {
         $title = "Tambah Data Departement";
-        return view('departements.create', compact('title'));
+        $managers = User::where('position', 'manager')->get();
+        return view('departements.create', compact(['managers', 'title']));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
-            'location',
-            'manager_id',
+            'location' => 'nullable',
+            'manager_id' => 'required',
         ]);
 
-        Departements::create($request->post());
+        Departements::create($validatedData);
 
-        return redirect()->route('departements.index')->with('success', 'Departement has been created successfully.');
+        return redirect()->route('departements.index')->with('success', 'Departement created successfully.');
     }
 
 
-    public function show(departements $departement)
+    public function show(Departements $departement)
     {
         return view('departements.show', compact('departement'));
     }
 
 
-    public function edit(departements $departement)
+    public function edit(Departements $departement)
     {
-        $title = "Edit Data Pasien";
-        return view('departements.edit', compact(['departement', 'title']));
+        $title = "Edit Data Departement";
+        $managers = User::where('position', 'manager')->get();
+        return view('departements.edit', compact(['departement', 'managers', 'title']));
     }
 
 
-    public function update(Request $request, departements $departement)
+    public function update(Request $request, Departements $departement)
     {
         $request->validate([
             'name' => 'required',
@@ -61,7 +64,7 @@ class DepartementController extends Controller
     }
 
 
-    public function destroy(departements $departement)
+    public function destroy(Departements $departement)
     {
         $departement->delete();
         return redirect()->route('departements.index')->with('success', 'Departement has been deleted successfully');

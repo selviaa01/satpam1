@@ -12,6 +12,6 @@ class Departements extends Model
 
     public function manager()
     {
-        return $this->belongsTo(Positions::class, 'manager_id');
+        return $this->belongsTo(User::class, 'manager_id');
     }
 }

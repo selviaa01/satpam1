@@ -15,8 +15,8 @@ use App\Http\Controllers\DepartementController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('companies', PositionController::class);
-Route::resource('companies', DepartementController::class);
+Route::resource('positions', PositionController::class);
+Route::resource('departements', DepartementController::class);
 
 Route::get('/', function () {
     return view('home', ['title' => 'Home']);
