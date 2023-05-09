@@ -22,18 +22,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="manager_id">Manager ID</label>
-            <select name="manager_id" class="form-control">
-            <option value="" > Pilih</option>
+            <label for="manager_id">Manager</label>
+            <select name="manager_id" id="manager_id" class="form-select">
+                <option value="">Pilih</option>
                 @foreach ($managers as $manager)
-                    <option value="{{ $manager->id }}">{{ $manager->name }}</option>
+                <option value="{{ $manager->id }}">{{ $manager->name }}</option>
                 @endforeach
             </select>
-        <div class="col-lg-12 margin-tb">
-                <div class="text-end mb-2">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-warning text-end" href="{{ route('departements.index') }}"> Back</a>
-                </div>
-              </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3 ml-3">Submit</button>
+    </div>
 </form>
 @endsection

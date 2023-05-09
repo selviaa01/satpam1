@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;    //Model = Untuk mengekusi database
+use App\Models\User; //model berfungsi untuk mengeksekusi database
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Departements;
-use App\Models\Positions;
-use Illuminate\Validation\Rule;
-
 
 class UserController extends Controller
 {
@@ -87,92 +83,4 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-    // latihan tugas
-    public function index()
-    {
-        $users = User::with(['departements', 'positions'])->get();
-
-        return view('users.index', compact('users'));
-    }
-    public function create()
-    {
-        $departements = Departements::all();
-        $positions = Positions::all();
-        $title = "Tambah Data Position";
-
-        return view('users.create', compact('departements', 'positions'));
-    }
-
-
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|min:6|max:255',
-            'department_id' => 'required|exists:departements,id',
-            'position_id' => 'required|exists:positions,id',
-        ]);
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
-            'department_id' => $validatedData['department_id'],
-            'position_id' => $validatedData['position_id'],
-        ]);
-
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
-    }
-
-    public function show(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function edit(User $user)
-    {
-        $departements = Departements::all();
-        $positions = Positions::all();
-
-        $title = "edit Data Position";
-
-        return view('users.edit', compact('departements', 'positions'));
-    }
-
-    public function update(Request $request, User $user)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore($user->id),
-            ],
-            'password' => 'nullable|min:6|max:255',
-            'department_id' => 'required|exists:departements,id',
-            'position_id' => 'required|exists:positions,id',
-        ]);
-        $data = [
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'department_id' => $validatedData['department_id'],
-            'position_id' => $validatedData['position_id'],
-        ];
-
-        if (!empty($validatedData['password'])) {
-            $data['password'] = bcrypt($validatedData['password']);
-        }
-
-        $user->update($data);
-
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
-    }
-
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
-    }
-    
 }
