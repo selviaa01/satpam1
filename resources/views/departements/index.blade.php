@@ -1,3 +1,4 @@
+<?php use App\Models\User; ?>
 @extends('app')
 @section('content')
 @if(session('success'))
@@ -7,25 +8,34 @@
 </div>
 @endif
 <div class="text-end mb-2">
-  <a class="btn btn-success" href="{{ route('departements.create') }}"> Add Satpam</a>
+  <a class="btn btn-success" href="{{ route('departements.exportPdf') }}"> Export</a>"
+  <a class="btn btn-success" href="{{ route('departements.create') }}"> Add Departement</a>
 </div>
-<table class="table">
+
+<table id="example" class="table table-striped" style="width:100%">
   <thead>
     <tr>
-      <th scope="col">No</th>
-      <th scope="col">Name</th>
-      <th scope="col">Location</th>
-      <th scope="col">manager_id</th>
-      <th scope="col">Actions</th>
+      <th scope="col">#</th>
+      <th scope="col">Nama</th>
+      <th scope="col">Keterangan</th>
+      <th scope="col">Manager Name</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
+    @php $no = 1 @endphp
     @foreach ($departements as $data)
     <tr>
-      <td>{{ $data->id }}</td>
+      <td>{{ $no ++ }}</td>
       <td>{{ $data->name }}</td>
       <td>{{ $data->location }}</td>
-      <td>{{ $data->manager_id }}</td>
+      <td>{{
+    (isset($data->manager->email)) ?
+      $data->manager->email :
+    
+      'Tidak ada manager'
+}}
+  </td>
       <td>
         <form action="{{ route('departements.destroy',$data->id) }}" method="Post">
           <a class="btn btn-primary" href="{{ route('departements.edit',$data->id) }}">Edit</a>
@@ -39,3 +49,9 @@
   </tbody>
 </table>
 @endsection
+@section ('js')
+<script>
+  $(document).ready(function () {
+    $('#example').DataTable();
+});
+</script>

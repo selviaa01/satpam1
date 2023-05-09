@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\UserController;  //mendaptarkan controler
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DepartementController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController; //mendaftarkan controller yang akan digunakan
+use App\Http\Controllers\PositionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,7 @@ use App\Http\Controllers\DepartementController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('positions', PositionController::class);
-Route::resource('departements', DepartementController::class);
-
-Route::get('/', function () {
-    return view('home', ['title' => 'Home']);
-})->name('home');
-
+//kalau yang dibawah ini untuk mendsaftarkan di route
 
 
 Route::get('register', [UserController::class, 'register'])->name('register');
@@ -38,10 +33,11 @@ Route::middleware('auth')->group(
         Route::post('password', [UserController::class, 'password_action'])->name('password.action');
         Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-
-// route position
+        //route position
         Route::resource('positions', PositionController::class);
-
-        Route::resource('departements', DepartementController::class);
         
-    });
+        //route departements
+        Route::get('departements/export-pdf', [DepartementController::class, 'exportPdf'])->name('departements.export-Pdf');
+        Route::resource('departements', DepartementController::class);
+    }
+);

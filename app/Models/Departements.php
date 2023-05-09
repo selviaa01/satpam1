@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Departements extends Model
 {
-    use HasFactory;
     protected $fillable = ['name', 'location', 'manager_id'];
 
     public function manager()
     {
         return $this->belongsTo(User::class, 'manager_id');
+    }
+    public function getManager()
+    {
+        return $this->belongsTo(User::class, 'manager_id', 'id');
     }
 }
