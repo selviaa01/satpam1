@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; //model berfungsi untuk mengeksekusi database
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PDF;
 
 class UserController extends Controller
 {
@@ -82,5 +83,81 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    // TUGAS ADD USER
+    public function index()
+    {
+        $title = "Data User";
+        $user = User::orderBy('id', 'asc')->paginate();
+        return view('users.index', compact(['user', 'title']));
+    }
+
+    public function create()
+    {
+        $title = "Tambah Data User";
+        $managers = User::where('position', '1')->get();
+        return view('users.create', compact(['managers', 'title']));
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'nullable',
+            'password' => 'required',
+            'positions' => 'required',
+            'departements' => 'required',
+        ]);
+
+        User::create($validatedData);
+
+        return redirect()->route('user.index')->with('success', 'User created successfully.');
+    }
+
+
+    public function show(User $user)
+    {
+        return view('user.show', compact('user'));
+    }
+
+
+    public function edit(User $user)
+    {
+        $title = "Edit Data User";
+        $managers = User::where('position', '1')->get();
+        return view('users.edit', compact(['user', 'managers', 'title']));
+    }
+
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email',
+            'password',
+            'positions',
+            'departements',
+        ]);
+
+        $user->fill($request->post())->save();
+
+        return redirect()->route('user.index')->with('success', 'User Has Been updated successfully');
+    }
+
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('user.index')->with('success', 'User has been deleted successfully');
+    }
+
+    public function exportPdf()
+    {
+        $title = "Laporan Data User";
+        $user = User::orderBy('id', 'asc')->get();
+
+        $pdf = PDF::loadview('users.pdf', compact(['user', 'title']));
+        return $pdf->stream('laporan-user-pdf');
     }
 }

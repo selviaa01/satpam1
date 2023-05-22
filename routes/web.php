@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController; //mendaftarkan controller yang akan digunakan
-use App\Http\Controllers\PositionController;
-
+use App\Http\Controllers\PositionsController;
+use App\Http\Controllers\DepartementsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +15,7 @@ use App\Http\Controllers\PositionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//kalau yang dibawah ini untuk mendsaftarkan di route
+
 
 
 Route::get('register', [UserController::class, 'register'])->name('register');
@@ -24,8 +23,9 @@ Route::post('register', [UserController::class, 'register_action'])->name('regis
 Route::get('login', [UserController::class, 'login'])->name('login');
 Route::post('login', [UserController::class, 'login_action'])->name('login.action');
 
+
 Route::middleware('auth')->group(
-    function () {
+    function (){
         Route::get('/', function () {
             return view('home', ['title' => 'Beranda']);
         })->name('home');
@@ -33,11 +33,15 @@ Route::middleware('auth')->group(
         Route::post('password', [UserController::class, 'password_action'])->name('password.action');
         Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-        //route position
-        Route::resource('positions', PositionController::class);
+        //route positions
+        Route::resource('positions', PositionsController::class);
+
+        //route departments
+        Route::resource('departements', DepartementsController::class);
+        Route::get('departement/export-pdf', [DepartementsController::class, 'exportPdf'])->name('departements.export-Pdf');
+
+        //route user
+        Route::resource('user', UserController::class);
+        Route::get('users/export-pdf', [UserController::class, 'exportPdf'])->name('users.export-Pdf');
         
-        //route departements
-        Route::get('departements/export-pdf', [DepartementController::class, 'exportPdf'])->name('departements.export-Pdf');
-        Route::resource('departements', DepartementController::class);
-    }
-);
+    });

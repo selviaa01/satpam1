@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Positions;
 use Illuminate\Http\Request;
 
-class PositionController extends Controller
+class PositionsController extends Controller
 {
     public function index()
     {
@@ -52,7 +51,7 @@ class PositionController extends Controller
         $request->validate([
             'name' => 'required',
             'keterangan',
-            'alias'
+            'alias',
         ]);
 
         $position->fill($request->post())->save();

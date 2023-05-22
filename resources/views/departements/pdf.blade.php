@@ -3,7 +3,7 @@
 <table class="table mt-5">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">No</th>
             <th scope="col">Nama</th>
             <th scope="col">Location</th>
             <th scope="col">Manager Name</th>

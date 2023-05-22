@@ -7,8 +7,8 @@
 </div>
 @endif
 <div class="text-end mb-2">
-                    <a class="btn btn-light" href="{{ route('departements.export-Pdf') }}"> Export</a>
-                    <a class="btn btn-success" href="{{ route('departements.create') }}"> Add Departement</a>
+                    <a class="btn btn-light" href="{{ route('users.export-Pdf') }}"> Export</a>
+                    <a class="btn btn-success" href="{{ route('user.create') }}"> Add User</a>
                     
                 </div>
 <table id="example" class="table table-striped" style="width:100%">
@@ -16,26 +16,31 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nama</th>
-            <th scope="col">Lokasi</th>
-            <th scope="col">Manager Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">Position</th>
+            <th scope="col">Departement</th>
             <th width="280px">Action</th>
         </tr>
     </thead>
     <tbody>
-    @foreach ($departements as $departement)
+    @foreach ($user as $data)
     <tr>
-        <td>{{ $departement->id }}</td>
-        <td>{{ $departement->name }}</td>
-        <td>{{ $departement->location }}</td>
-        <td>{{ 
-            (isset($departement->getManager->name)) ?
-            $departement->getManager->name :
+        <td>{{ $data->id }}</td>
+        <td>{{ $data->name }}</td>
+        <td>{{ $data->email }}</td>
+        <td>{{ $data->password }}</td>
+        <td>{{ $data->position }}</td>
+        <td>{{ $data->departement }}</td>
+        <!-- <td>{{ 
+            (isset($data->getManager->name)) ?
+            $data->getManager->name :
             'Tidak Ada'
             }}
-        </td>
+        </td> -->
         <td>
-            <form action="{{ route('departements.destroy',$departement->id) }}" method="Post">
-                <a class="btn btn-primary" href="{{ route('departements.edit',$departement->id) }}">Edit</a>
+            <form action="{{ route('user.destroy',$data->id) }}" method="Post">
+                <a class="btn btn-primary" href="{{ route('user.edit',$data->id) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>

@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">JADWAL SATPAM</a>
+            <a class="navbar-brand" href="#"><b>Data Satpam</b></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,7 +28,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('departements.index')}}">Departement</a>
                     </li>
-                    @if(Auth()->user()->position =="1")
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('user.index')}}">User</a>
+                    </li>
+                    @if(Auth()->user()->position =="0")
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Link

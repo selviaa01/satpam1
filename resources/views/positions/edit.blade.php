@@ -1,5 +1,11 @@
 @extends('app')
 @section('content')
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ session('success') }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <form action="{{ route('positions.update',$position->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -31,7 +37,7 @@
                 @enderror
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-3 ml-3">Submit</button>
+        <button type="submit" class="btn btn-success mt-3 ml-3">Submit</button>
     </div>
 </form>
 @endsection
