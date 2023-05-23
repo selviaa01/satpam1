@@ -35,6 +35,7 @@ Route::middleware('auth')->group(
 
         //route positions
         Route::resource('positions', PositionsController::class);
+        Route::get('position/export-excel', [PositionsController::class, 'exportExcel'])->name('positions.exportExcel');
 
         //route departments
         Route::resource('departements', DepartementsController::class);

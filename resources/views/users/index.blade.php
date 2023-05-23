@@ -17,7 +17,6 @@
             <th scope="col">#</th>
             <th scope="col">Nama</th>
             <th scope="col">Email</th>
-            <th scope="col">Password</th>
             <th scope="col">Position</th>
             <th scope="col">Departement</th>
             <th width="280px">Action</th>
@@ -29,15 +28,8 @@
         <td>{{ $data->id }}</td>
         <td>{{ $data->name }}</td>
         <td>{{ $data->email }}</td>
-        <td>{{ $data->password }}</td>
         <td>{{ $data->position }}</td>
         <td>{{ $data->departement }}</td>
-        <!-- <td>{{ 
-            (isset($data->getManager->name)) ?
-            $data->getManager->name :
-            'Tidak Ada'
-            }}
-        </td> -->
         <td>
             <form action="{{ route('user.destroy',$data->id) }}" method="Post">
                 <a class="btn btn-primary" href="{{ route('user.edit',$data->id) }}">Edit</a>

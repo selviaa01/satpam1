@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Positions;
 use Illuminate\Http\Request;
+use App\Exports\ExportPositions;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PositionsController extends Controller
 {
@@ -45,7 +47,6 @@ class PositionsController extends Controller
         return view('positions.edit', compact(['position', 'title']));
     }
 
-
     public function update(Request $request, Positions $position)
     {
         $request->validate([
@@ -64,5 +65,9 @@ class PositionsController extends Controller
     {
         $position->delete();
         return redirect()->route('positions.index')->with('success', 'Position has been deleted successfully');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new ExportPositions, 'positions.xlsx');
     }
 }
