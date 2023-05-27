@@ -19,7 +19,7 @@ class DepartementSController extends Controller
     public function create()
     {
         $title = "Tambah Data Departement";
-        $managers = User::where('position', '1')->get();
+        $managers = User::where('position', 'manager')->get();
         return view('departements.create', compact(['managers', 'title']));
     }
 
