@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('satpams', function (Blueprint $table) {
             $table->id();
             $table->string('nama_satpam')->nullable();
-            $table->string('hari_jaga')->nullable();
+            $table->string('tempat_jaga')->nullable();
             $table->timestamps();
         });
     }

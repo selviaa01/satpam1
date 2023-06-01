@@ -55,8 +55,8 @@ class DepartementSController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'location',
-            'manager_id'
+            'location' => 'required',
+            'manager_id' => 'required',
         ]);
 
         $departement->fill($request->post())->save();

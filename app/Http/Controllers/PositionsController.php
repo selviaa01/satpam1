@@ -51,8 +51,8 @@ class PositionsController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'keterangan',
-            'alias',
+            'keterangan' => 'required',
+            'alias' => 'required',
         ]);
 
         $position->fill($request->post())->save();
@@ -68,6 +68,6 @@ class PositionsController extends Controller
     }
 
     public function exportExcel(){
-        return Excel::download(new ExportPositions, 'positions.xlsx');
+        return Excel::download(new ExportPositions, 'Positions.xlsx');
     }
 }

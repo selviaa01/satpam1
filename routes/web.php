@@ -4,6 +4,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\DepartementsController;
+use App\Http\Controllers\SatpamController;
+use App\Http\Controllers\SIPController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +42,16 @@ Route::middleware('auth')->group(
         //route departments
         Route::resource('departements', DepartementsController::class);
         Route::get('departement/export-pdf', [DepartementsController::class, 'exportPdf'])->name('departements.export-Pdf');
+        Route::get('position/export-excel',
+        [PositionController::class, 'exportExcel'])
+        ->name('positions.exportExcel');
 
         //route user
         Route::resource('user', UserController::class);
         Route::get('users/export-pdf', [UserController::class, 'exportPdf'])->name('users.export-Pdf');
         
+
+        //route SIP
+        Route::resource('sips', SIPController::class);
+        Route::get('search/sip', [SatpamController::class, 'autocomplete'])->name('search.sip');
     });

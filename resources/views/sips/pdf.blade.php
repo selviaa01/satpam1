@@ -11,15 +11,15 @@
     </thead>
     <tbody>
         <?php $no = 1; ?>
-        @foreach ($departements as $departement)
+        @foreach ($sips as $sip)
         <?php $no++; ?>
         <tr>
             <td>{{ $no }}</td>
-            <td>{{ $departement->name }}</td>
-            <td>{{ $departement->location }}</td>
+            <td>{{ $sip->name }}</td>
+            <td>{{ $sip->location }}</td>
             <td>{{
-                (isset($departement->getManager->name))?
-                $departement->getManager->name :
+                (isset($sip->getManager->name))?
+                $sip->getManager->name :
                 'Tidak Ada' 
                 }}
             </td>

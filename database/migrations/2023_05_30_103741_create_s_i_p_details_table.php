@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('s_i_p__details', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_sip')->nullable();
+            $table->integer('id_satpam')->nullable();
             $table->string('nama_satpam')->nullable();
-            $table->string('hari_jaga')->nullable();
-            $table->string('tempat_jaga')->nullable();
-            $table->string('waktu_jaga')->nullable();
             $table->date('tanggal_jaga')->nullable();
+            $table->string('tempat_jaga')->nullable();
+            
             $table->timestamps();
         });
     }
