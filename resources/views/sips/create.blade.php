@@ -1,36 +1,28 @@
 @extends('app')
 @section('content')
-<form action="{{ route('sips.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('transs.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nama Satpam :</strong>
-                <input type="text" name="nama_satpam" class="form-control" placeholder="Nama Satpam">
-                @error('nama_satpam')
+                <strong>Nama Obat :</strong>
+                <input type="text" name="nama_obat" class="form-control" placeholder="Nama Obat">
+                @error('nama_obat')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Tanggal Jaga :</strong>
-                <input type="date" name="tanggal_jaga" class="form-control" placeholder="Tanggal Jaga">
-                @error('tanggal_jaga')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Tempat Jaga :</strong>
-                <select name="tempat_jaga" id="tempat_jaga" class="form-select">
+                <strong>Jenis Obat :</strong>
+                <select name="jenis_obat" id="jenis_obat" class="form-select">
                     <option value="">Pilih</option>
                     @foreach($managers as $item)
-                    <option value="{{ $item->id }}">{{ $item->tempat_jaga }}</option>
+                    <option value="{{ $item->id }}">{{ $item->jenis_obat }}</option>
                     @endforeach
                 </select>
-                @error('tempat_jaga')
+                @error('jenis_obat')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
@@ -51,10 +43,8 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama Satpam</th>
-                        <th scope="col">Tanggal Jaga</th>
-                        <th scope="col">Tempat Jaga</th>
-                        <th scope="col">Sesi Jaga</th>
+                        <th scope="col">Nama Obat</th>
+                        <th scope="col">Jenis Obat</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,7 +58,7 @@
 
 @section('js')
 <script type="text/javascript">
-    var path = "{{ route('search.sip') }}";
+    var path = "{{ route('search.trans') }}";
 
     $("#search").autocomplete({
         source: function (request, response) {

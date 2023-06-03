@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('s_i_p__details', function (Blueprint $table) {
+        Schema::create('t_r_a_n_s__details', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_sip')->nullable();
-            $table->integer('id_satpam')->nullable();
-            $table->string('nama_satpam')->nullable();
-            $table->date('tanggal_jaga')->nullable();
-            $table->string('tempat_jaga')->nullable();
+            $table->integer('id_trans')->nullable();
+            $table->integer('id_obat')->nullable();
+            $table->string('nama_obat')->nullable();
+            $table->string('jenis_obat')->nullable();
             
             $table->timestamps();
         });
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('s_i_p__details');
+        Schema::dropIfExists('t_r_a_n_s__details');
     }
 };

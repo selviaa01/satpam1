@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Satpam;
+use App\Models\Obat;
 use Illuminate\Http\Request;
 
-class SatpamController extends Controller
+class ObatController extends Controller
 {
     public function autocomplete(Request $request)
     {
-        $data = Satpam::select("name as value", "id")
+        $data = Obat::select("name as value", "id")
                     ->where('name', 'LIKE', '%'. $request->get('search'). '%')
                     ->get();
     
