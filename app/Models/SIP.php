@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TRANS_Detail extends Model
+class SIP extends Model
 {
     use HasFactory;
 }

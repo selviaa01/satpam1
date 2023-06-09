@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('obats', function (Blueprint $table) {
+        Schema::create('s_i_p_s', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_obat')->nullable();
-            $table->string('jenis_obat')->nullable();
+            $table->string('nama_satpam')->nullable();
+            $table->string('sesi_jaga')->nullable();
+            $table->string('tempat_jaga')->nullable();
+            $table->date('tanggal_jaga')->nullable();
             $table->timestamps();
+
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obats');
+        Schema::dropIfExists('s_i_p_s');
     }
 };

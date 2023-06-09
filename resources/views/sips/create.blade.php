@@ -1,28 +1,36 @@
 @extends('app')
 @section('content')
-<form action="{{ route('transs.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('sips.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nama Obat :</strong>
-                <input type="text" name="nama_obat" class="form-control" placeholder="Nama Obat">
-                @error('nama_obat')
+                <strong>Nama Satpam :</strong>
+                <input type="text" name="nama_satpam" class="form-control" placeholder="Nama Satpam">
+                @error('nama_satpam')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
         </div>
-
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Jenis Obat :</strong>
-                <select name="jenis_obat" id="jenis_obat" class="form-select">
+                <strong>Tanggal Jaga :</strong>
+                <input type="date" name="tanggal_jaga" class="form-control" placeholder="Tanggal Jaga">
+                @error('tanggal_jaga')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Tempat Jaga :</strong>
+                <select name="tempat_jaga" id="tempat_jaga" class="form-select">
                     <option value="">Pilih</option>
                     @foreach($managers as $item)
-                    <option value="{{ $item->id }}">{{ $item->jenis_obat }}</option>
+                    <option value="{{ $item->id }}">{{ $item->tempat_jaga }}</option>
                     @endforeach
                 </select>
-                @error('jenis_obat')
+                @error('tempat_jaga')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
@@ -43,11 +51,15 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama Obat</th>
-                        <th scope="col">Jenis Obat</th>
+                        <th scope="col">Nama Satpam</th>
+                        <th scope="col">Tanggal Jaga</th>
+                        <th scope="col">Tempat Jaga</th>
+                        <th scope="col">Sesi Jaga</th>
+                        <th scope="col">action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="detail">
+                    
                 </tbody>
             </table>
         </div>
@@ -58,7 +70,7 @@
 
 @section('js')
 <script type="text/javascript">
-    var path = "{{ route('search.trans') }}";
+    var path = "{{ route('search.sip') }}";
 
     $("#search").autocomplete({
         source: function (request, response) {
@@ -76,10 +88,40 @@
             },
             select: function (event, ui) {
             $('#search').val(ui.item.label);
-            console.log(ui.item);
+            // console.log(ui.item);
+            add(); 
             return false;
             }
             });
+
+            function add(id){
+                const path = "{{route('sips.index') }}/"+id;
+                var html = "";
+                var no=0;
+               if($('#detail tr').length > no){
+                     html = $('#detail').html();
+                     no = no +$('#detail tr').length;
+               }
+                $.ajax({
+                    url: path,
+                    type: 'GET',
+                    dataType: "json",
+                    success: function( data ) {
+                        console.log(data);
+                    no++;   
+                    }
+                });
+                html += '<tr>'+
+                        '<td>'+no+'<input type="hidden" name="id_satpam'+no+'" class="form-control" value="'+data.id+'"></td>'+
+                        '<td><input type="text" name="nama_satpam'+no+'" class="form-control" value="'+data.nama_satpam+'"></td>'+
+                        '<td><input type="text" name="tanggal_jaga'+no+'" class="form-control"></td>'+
+                        '<td><input type="text" name="tempat_jaga'+no+'" class="form-control" value="'+data.tempat_jaga+'"></td>'+
+                        '<td><input type="text" name="sesi_jaga'+no+'" class="form-control"></td>'+
+                        '<td><a href type="#" class="btn btn-sm btn-danger">X</a></td>'+
+                    '</tr>';
+                $('#detail').html(html);
+            }
+            
 
 </script>
 @endsection

@@ -4,8 +4,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\DepartementsController;
-use App\Http\Controllers\ObatController;
-use App\Http\Controllers\TRANSController;
+use App\Http\Controllers\SatpamController;
+use App\Http\Controllers\SIPController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +51,8 @@ Route::middleware('auth')->group(
         Route::get('users/export-pdf', [UserController::class, 'exportPdf'])->name('users.export-Pdf');
         
 
-        //route TRANS
-        Route::resource('transs', TRANSController::class);
-        Route::get('search/trans', [ObatsController::class, 'autocomplete'])->name('search.trans');
+        //route SIP
+        Route::resource('sips', SIPController::class);
+        Route::get('search/sip', [SatpamController::class, 'autocomplete'])->name('search.sip');
+        
     });

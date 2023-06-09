@@ -11,15 +11,15 @@
     </thead>
     <tbody>
         <?php $no = 1; ?>
-        @foreach ($transs as $trans)
+        @foreach ($sips as $sip)
         <?php $no++; ?>
         <tr>
             <td>{{ $no }}</td>
-            <td>{{ $trans->name }}</td>
-            <td>{{ $trans->location }}</td>
+            <td>{{ $sip->name }}</td>
+            <td>{{ $sip->location }}</td>
             <td>{{
-                (isset($trans->getManager->name))?
-                $trans->getManager->name :
+                (isset($sip->getManager->name))?
+                $sip->getManager->name :
                 'Tidak Ada' 
                 }}
             </td>

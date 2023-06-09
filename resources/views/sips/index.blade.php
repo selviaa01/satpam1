@@ -7,7 +7,7 @@
 </div>
 @endif
 <div class="text-end mb-2">
-                    <a class="btn btn-success" href="{{ route('transs.create') }}"> Add trans</a>
+                    <a class="btn btn-success" href="{{ route('sips.create') }}"> Add sip</a>
                     
                 </div>
 <table id="example" class="table table-striped" style="width:100%">
@@ -21,20 +21,20 @@
         </tr>
     </thead>
     <tbody>
-    @foreach ($transs as $trans)
+    @foreach ($sips as $sip)
     <tr>
-        <td>{{ $trans->id }}</td>
-        <td>{{ $trans->name }}</td>
-        <td>{{ $trans->location }}</td>
+        <td>{{ $sip->id }}</td>
+        <td>{{ $sip->name }}</td>
+        <td>{{ $sip->location }}</td>
         <td>{{ 
-            (isset($trans->getManager->name)) ?
-            $trans->getManager->name :
+            (isset($sip->getManager->name)) ?
+            $sip->getManager->name :
             'Tidak Ada'
             }}
         </td>
         <td>
-            <form action="{{ route('transs.destroy',$trans->id) }}" method="Post">
-                <a class="btn btn-primary" href="{{ route('transs.edit',$trans->id) }}">Edit</a>
+            <form action="{{ route('sips.destroy',$sip->id) }}" method="Post">
+                <a class="btn btn-primary" href="{{ route('sips.edit',$sip->id) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>
