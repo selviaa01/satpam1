@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nama_satpam')->nullable();
             $table->date('tanggal_jaga')->nullable();
             $table->string('tempat_jaga')->nullable();
+            $table->string('sesi_jaga')->nullable();
             
             $table->timestamps();
         });

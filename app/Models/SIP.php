@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class SIP extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nama_satpam',
+        'tanggal_jaga',
+        'tempat_jaga',
+        'sesi_jaga'
+    ];
 }

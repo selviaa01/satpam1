@@ -25,9 +25,7 @@ class SIPController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'keterangan',
-            'alias',
+            'nama_satpam' => 'required'
         ]);
         
         SIP::create($request->post());
