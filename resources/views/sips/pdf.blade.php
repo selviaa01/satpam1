@@ -5,7 +5,7 @@
         <tr>
             <th scope="col">No</th>
             <th scope="col">Nama</th>
-            <th scope="col">Location</th>
+            <th scope="col">Keterangan</th>
             <th scope="col">Manager Name</th>
         </tr>
     </thead>

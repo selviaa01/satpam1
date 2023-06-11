@@ -1,43 +1,37 @@
 @extends('app')
 @section('content')
-<form action="{{ route('sips.update', $sip->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('departements.update', $departement->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nama Satpam :</strong>
-                <input type="text" name="name" class="form-control" placeholder="Nama Satpam" value="{{ $sip->name }}">
+                <strong>Depatement Name:</strong>
+                <input type="text" name="name" class="form-control" placeholder="Depatement Name" value="{{ $departement->name }}">
                 @error('name')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
-            </div>
+            </div> 
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Tanggal Jaga :</strong>
-                <input type="text" name="tanggal_jaga" class="form-control" placeholder="tanggal_jaga" value="{{ $sip->tanggal_jaga }}">
-                @error('tanggal_jaga')
+                <strong>Location :</strong>
+                <input type="text" name="location" class="form-control" placeholder="location" value="{{ $departement->location }}">
+                @error('location')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Tempat Jaga :</strong>
+                <strong>Manager:</strong>
                 <select name="manager_id" id="manager_id" class="form-select" >
                         <option value="" >Pilih</option>
                         @foreach($managers as $item)
-                        <option value="{{ $item->id }}" {{ ($item->id == $sip->manager_id) ? 'selected' : ''}}> {{ $item->tempat_jaga }}</option>
+                        <option value="{{ $item->id }}" {{ ($item->id == $departement->manager_id) ? 'selected' : ''}}> {{ $item->name }}</option>
                         @endforeach
                 </select>
-                @error('tempat_jaga')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="col-md-10 form-group">
-                <input type="text" name="search" id="search" class="form-control" placeholder="Masukan Sesi Jaga Anda">
-                @error('name')
+                @error('alias')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>

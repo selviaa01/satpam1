@@ -5,14 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SIP_Detail extends Model
+class Sip_Detail extends Model
 {
+
     use HasFactory;
+
     protected $fillable = [
-        'nama_satpam',
-        'id_satpam',
-        'tanggal_jaga',
+        'no_satpam', 
+        'nama_satpam', 
         'tempat_jaga',
-        'sesi_jaga'
+        'hari_jaga',
     ];
+
+    public function getSip()
+    {
+        return $this->belongsTo(Sip::class, 'no_satpam', 'id');
+    }
 }

@@ -7,6 +7,7 @@
 </div>
 @endif
 <div class="text-end mb-2">
+<a class="btn btn-light" href="{{ route('satpams.exportPdf') }}"> Export</a>
                     <a class="btn btn-success" href="{{ route('sips.create') }}"> Add sip</a>
                     
                 </div>
@@ -15,7 +16,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nama</th>
-            <th scope="col">Lokasi</th>
+            <th scope="col">Keterangan</th>
             <th scope="col">Manager Name</th>
             <th width="280px">Action</th>
         </tr>

@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('s_i_p_s', function (Blueprint $table) {
+        Schema::create('sips', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_satpam')->nullable();
-            $table->string('sesi_jaga')->nullable();
-            $table->string('tempat_jaga')->nullable();
-            $table->date('tanggal_jaga')->nullable();
+            $table->time('jam_jaga')->nullable();
+            $table->date('tgl_jaga')->nullable();
+            $table->string('sertifikasi_keamanan')->nullable();
             $table->timestamps();
-
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('s_i_p_s');
+        Schema::dropIfExists('sips');
     }
 };

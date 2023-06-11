@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\DepartementsController;
 use App\Http\Controllers\SatpamController;
-use App\Http\Controllers\SIPController;
+use App\Http\Controllers\SipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,9 @@ Route::middleware('auth')->group(
         
 
         //route SIP
-        Route::resource('sips', SIPController::class);
-        Route::get('search/sip', [SatpamController::class, 'autocomplete'])->name('search.sip');
+        Route::resource('satpams', SipController::class);
+        Route::get('search/sip', [SipController::class, 'autocomplete'])->name('search.sip');
+        Route::get('satpams/export-pdf', [SatpamController::class, 'exportPdf'])->name('satpams.export-Pdf');
+        Route::resource('sips', SipController::class);
         
     });
