@@ -128,11 +128,10 @@
                 console.log(data); 
                 no++;
                 html += '<tr>' +
-                   '<td>'+no+'<input type="hidden" name="no_satpam'+no+'" class="form-control" value="'+data.id+'"></td>' +
+                   '<td>'+no+'<input type="hidden" name="nama_satpam'+no+'" class="form-control" value="'+data.nama+'"></td>' +
                     '<td><input type="text" name="jam_jaga'+no+'" class="form-control" value="'+data.jam_jaga+'"></td>' +
                     '<td><input type="text" name="tgl_jaga'+no+'" class="form-control" value="'+data.tgl_jaga+'"></td>' +
-                    '<td><input type="text" name="sertifikasi_keamanan'+no+'" class="form-control" value="'+data.sertifikasi_keamanan+'"></td>' +
-                    '<td><input type="text" name="tempat_jaga'+no+'" class="form-control"></td>' +
+                    '<td><input type="text" name="tempat_jaga'+no+'" class="form-control" value="'+data.tempat_jaga+'"></td>' +
                     '<td><input type="text" name="hari_jaga'+no+'" class="form-control"></td>' +
                     '<td><a href="#" class="btn btn-sm btn-danger">X</a></td>' +
                 '</tr>';

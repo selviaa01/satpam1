@@ -7,10 +7,8 @@
 </div>
 @endif
 <div class="text-end mb-2">
-<a class="btn btn-light" href="{{ route('satpams.exportPdf') }}"> Export</a>
-                    <a class="btn btn-success" href="{{ route('sips.create') }}"> Add sip</a>
-                    
-                </div>
+    <a class="btn btn-success" href="{{ route('sips.create') }}"> Add sip</a>
+</div>
 <table id="example" class="table table-striped" style="width:100%">
     <thead>
         <tr>
@@ -27,14 +25,9 @@
         <td>{{ $sip->id }}</td>
         <td>{{ $sip->name }}</td>
         <td>{{ $sip->location }}</td>
-        <td>{{ 
-            (isset($sip->getManager->name)) ?
-            $sip->getManager->name :
-            'Tidak Ada'
-            }}
-        </td>
+        <td>{{ $sip->getManager->name ?? 'Tidak Ada' }}</td>
         <td>
-            <form action="{{ route('sips.destroy',$sip->id) }}" method="Post">
+            <form action="{{ route('sips.destroy',$sip->id) }}" method="POST">
                 <a class="btn btn-primary" href="{{ route('sips.edit',$sip->id) }}">Edit</a>
                 @csrf
                 @method('DELETE')

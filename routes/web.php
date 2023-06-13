@@ -56,5 +56,8 @@ Route::middleware('auth')->group(
         Route::get('search/sip', [SipController::class, 'autocomplete'])->name('search.sip');
         Route::get('satpams/export-pdf', [SatpamController::class, 'exportPdf'])->name('satpams.export-Pdf');
         Route::resource('sips', SipController::class);
+
+        Route::get('home', [SipController::class, 'chartLine']);
+        Route::get('chart-line-ajax', [SipController::class,'chartLineAjax'])->name('sips.chartLineAjax');
         
     });
