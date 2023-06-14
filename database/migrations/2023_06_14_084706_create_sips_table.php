@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('sips', function (Blueprint $table) {
             $table->id();
+            $table->string('sesi_jaga')->nullable();
             $table->time('jam_jaga')->nullable();
-            $table->date('tgl_jaga')->nullable();
             $table->string('sertifikasi_keamanan')->nullable();
             $table->timestamps();
         });

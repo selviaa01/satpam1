@@ -9,8 +9,8 @@ class Sip extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'jam_jaga',
-        'tgl_jaga',
+        'sesi_jaga',
+        'lama_jaga',
         'sertifikasi_keamanan',
     ];
 }

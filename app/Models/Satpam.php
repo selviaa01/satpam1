@@ -10,9 +10,18 @@ class Satpam extends Model
     use HasFactory;
 
     protected $fillable = [
-        'no_satpam', 
+        'kd_satpam', 
         'nama_satpam', 
-        'no_hp',
-        'bahasa',
+        'tgl_jaga',
     ];
+
+    public function detail()
+    {
+        return $this->hasMany(SipDetail::class, 'kd_satpam', 'kd_satpam');
+    }
+
+    public function getManager()
+    {
+        return $this->belongsTo(User::class, 'nama_satpam', 'id');
+    }
 }
