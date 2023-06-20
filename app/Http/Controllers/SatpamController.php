@@ -5,7 +5,8 @@ use App\Models\SipDetail;
 use App\Models\Satpam;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Charts\SatpamLineChart;
+use App\Charts\SipLineChart;
+use PDF;
 
 class SatpamController extends Controller
 {
@@ -58,22 +59,22 @@ class SatpamController extends Controller
     {
         $title = "Edit Data Satpam";
         $managers = User::where('position', '1')->orderBy('id','asc')->get();
-        $detail = SipDetail::where('no_satpam', $satpam->kd_satpam)->orderBy('id','asc')->get();
-        return view('satpams.edit',compact('satpam' , 'title', 'managers', 'detail'));
+        $detail = SipDetail::where('kd_satpam', $satpam->kd_satpam)->orderBy('id','asc')->get();
+        return view('satpams.edit',compact('satpam' , 'title', 'managers'));
     }
 
     public function update(Request $request, Satpam $satpam)
     {
-        $satpam = [
-            'kd_satpam' => $request->kd_satpam,
-            'nama_satpam' => $request->nama_satpam,
-            'tgl_jaga' => $request->tgl_jaga,
-        ];
+        $satpam->kd_satpam = $request->kd_satpam;
+        $satpam->nama_satpam = $request->nama_satpam;
+        $satpam->nama_satpam = $request->nama_satpam;
+        $satpam->tgl_jaga = $request->tgl_jaga;
+      
         if ($satpam->fill($satpams)->save()){
-            SipDetail::where('no_sat', $satpam->kd_satpam)->delete();
+            SipDetail::where('kd_satpam', $satpam->kd_satpam)->delete();
             for ($i=1; $i <= $request->jml; $i++) { 
                 $details = [
-                    'no_sat' => $satpam->kd_satpam,
+                    'kd_satpam' => $satpam->kd_satpam,
                     'kd_sip' => $request['kd_sip'.$i],
                     'nama_satpam' => $request['nama_satpam'.$i],
                     'tgl_jaga' => $request['tgl_jaga'.$i],
@@ -94,11 +95,11 @@ class SatpamController extends Controller
 
     public function exportPdf()
     {
-        $title = "Laporan Data Dokter";
-        $satpams = Satpam::orderBy('id', 'asc')->get();
+        $title = "Laporan Data Satpam";
+        $sips = Sip::orderBy('id', 'asc')->get();
 
-        $pdf = PDF::loadview('satpams.pdf', compact(['satpams', 'title']));
-        return $pdf->stream('laporan-satpams-pdf');
+        $pdf = PDF::loadview('sips.pdf', compact(['sips', 'title']));
+        return $pdf->stream('laporan-sips-pdf');
     }
 
     /**
@@ -108,7 +109,7 @@ class SatpamController extends Controller
      */
     public function chartLine()
     {
-        $api = url('satpams.chartLineAjax');
+        $api = url('sips.chartLineAjax');
    
         $chart = new SatpamLineChart;
         $chart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])->load($api);
@@ -124,14 +125,14 @@ class SatpamController extends Controller
     public function chartLineAjax(Request $request)
     {
         $year = $request->has('year') ? $request->year : date('Y');
-        $satpams = Satpam::select(\DB::raw("COUNT(*) as count"))
-                    ->whereYear('tgl_jaga', $year)
+        $sips = Sip::select(\DB::raw("COUNT(*) as count"))
+                    ->whereYear('tgl_jaga', 'LIKE', '%'.$year)
                     ->groupBy(\DB::raw("Month(tgl_jaga)"))
                     ->pluck('count');
   
-        $chart = new SatpamLineChart;
+        $chart = new SipLineChart;
   
-        $chart->dataset('New Satpam Register Chart', 'line', $satpams)->options([
+        $chart->dataset('New Sip Register Chart', 'line', $sips)->options([
                     'fill' => 'true',
                     'borderColor' => '#51C1C0'
                 ]);

@@ -56,7 +56,7 @@ Route::middleware('auth')->group(
       Route::get('search/sip', [SipController::class, 'autocomplete'])->name('search.sip');
       Route::resource('sips', SipController::class);
 
-        Route::get('home', [SipController::class, 'chartLine']);
+        Route::get('chart-line', [SipController::class, 'chartLine'])->name('sips.chartLine');
         Route::get('chart-line-ajax', [SipController::class,'chartLineAjax'])->name('sips.chartLineAjax');
         
     });
